@@ -50,15 +50,15 @@ Module Module1
         Dim Deck As Deck = MakeDeck(AllSuits)
         Console.Title = "Card Deck functionality demo"
         ' Budget struct solution 
-        Console.SetWindowSize(200, 60)
+        Console.SetWindowSize(200, 70)
         Console.BackgroundColor = ConsoleColor.DarkGreen
         Console.Clear()
-        Dim CardX As Integer = 10
-        Dim CardY As Integer = 8
+        Dim CardX As Integer = 11
+        Dim CardY As Integer = 11
         Dim StartCard = {2, 2}
         For i = 1 To Deck.TheDeck.Length
             DrawCard(StartCard, CardX, CardY, Deck.TheDeck(i - 1))
-            StartCard(0) += CardX - 2
+            StartCard(0) += CardX + 1
             If i Mod 13 = 0 Then
                 StartCard(0) = 2
                 StartCard(1) += CardY + 1
@@ -70,7 +70,7 @@ Module Module1
         Dim SingleCard As New Card
         Dim SingleHand(4) As Card
         Do
-            Console.SetCursorPosition(3, 40)
+            Console.SetCursorPosition(3, 52)
             Console.BackgroundColor = ConsoleColor.DarkGreen
             Console.ForegroundColor = ConsoleColor.Black
             Console.Write("(D)eck   |   (C)ard   |   (H)and   |   (R)eturn card   |   Return H(A)nd   |   (Q)uit")
@@ -248,19 +248,21 @@ Module Module1
         Console.ForegroundColor = Card.CardSuit.Colour
         Console.SetCursorPosition(StartCard(0) + 2, StartCard(1) + 2)
         If Card.CardVal = "10" Then
-            Console.Write(Left(Card.CardWord, 2))
+            Console.Write(Card.CardWord)
         Else
             Console.Write(Left(Card.CardWord, 1))
         End If
 
         If Card.CardVal = "10" Then
-            Console.SetCursorPosition(StartCard(0) + (CardX - 1), StartCard(1) + (CardY - 2))
-            Console.Write(Left(Card.CardWord, 2))
+            Console.SetCursorPosition(StartCard(0) + (CardX - 2), StartCard(1) + (CardY - 2))
+            Console.Write(Card.CardWord, 2)
         Else
-            Console.SetCursorPosition(StartCard(0) + (CardX - 1), StartCard(1) + (CardY - 1))
+            Console.SetCursorPosition(StartCard(0) + (CardX - 1), StartCard(1) + (CardY - 2))
             Console.Write(Left(Card.CardWord, 1))
+            'MsgBox("done")
         End If
 
+        ' Writing suit symbol in corners
         Console.SetCursorPosition(StartCard(0) + 2, StartCard(1) + 3)
         Console.Write(ChrW(Card.CardSuit.SymbolChar))
         Console.SetCursorPosition(StartCard(0) + (CardX - 1), StartCard(1) + (CardY - 1))
