@@ -1,83 +1,138 @@
-Structure Face
-    Dim CardValue As Integer
-    Dim CardWord As String
-    Dim DotPos() As String
-End Structure
-Structure Suit
-    Dim Name As String
-    Dim Colour As ConsoleColor
-    Dim SymbolChar As Integer
-End Structure
-Structure Card
-    Dim CardSuit As Suit
-    Dim CardFace As Face
-End Structure
-Structure Deck
-    Dim TheDeck() As Card
-    Dim CardDrawn As Boolean
-    Dim HandDrawn As Boolean
-    Function GetCard()
-        Dim Card As Card = TheDeck(0)
-        For i = 1 To TheDeck.Length - 1
-            TheDeck(i - 1) = TheDeck(i)
-        Next
-        ReDim Preserve TheDeck(TheDeck.Length - 2)
-        Return Card
-    End Function
-    Sub ReturnCard(RetCard As Card)
-        ReDim Preserve TheDeck(TheDeck.Length)
-        TheDeck(TheDeck.Length - 1) = RetCard
-    End Sub
-    Function GetHand()
-        Dim Hand(4) As Card ' Hand size hardcoded
-        For i = 0 To Hand.Length - 1
-            Hand(i) = TheDeck(i)
-        Next
-        For i = 1 To TheDeck.Length - 1
-            TheDeck(i - 1) = TheDeck(i)
-        Next
-        ReDim Preserve TheDeck(TheDeck.Length - 6)
-        Return Hand
-    End Function
-    Sub ReturnHand(RetHand() As Card)
-        Dim Index As Integer
-        ReDim Preserve TheDeck(TheDeck.Length + (RetHand.Length - 1))
-        For i = TheDeck.Length - RetHand.Length To TheDeck.Length - 1
-            TheDeck(i) = RetHand(Index)
-            Index += 1
-        Next
-    End Sub
-End Structure
-Module Program
-
-    ' Demo code for Face struct
-
+Module Module1
+    Structure Face
+        Dim CardValue As Integer
+        Dim CardWord As String
+        Dim DotPos() As String
+    End Structure
+    Structure Suit
+        Dim Name As String
+        Dim Colour As ConsoleColor
+        Dim SymbolChar As Integer
+    End Structure
+    Structure Card
+        Dim CardVal As Integer
+        Dim CardWord As String
+        Dim CardSuit As Suit
+        Dim CardFace As Face
+    End Structure
+    Structure Deck
+        Dim TheDeck() As Card
+        Dim CardDrawn As Boolean
+        Dim HandDrawn As Boolean
+        Function GetCard()
+            Dim Card As Card = TheDeck(0)
+            For i = 1 To TheDeck.Length - 1
+                TheDeck(i - 1) = TheDeck(i)
+            Next
+            ReDim Preserve TheDeck(TheDeck.Length - 2)
+            Return Card
+        End Function
+        Sub ReturnCard(RetCard As Card)
+            ReDim Preserve TheDeck(TheDeck.Length)
+            TheDeck(TheDeck.Length - 1) = RetCard
+        End Sub
+        Function GetHand()
+            Dim Hand(4) As Card ' Hand size hardcoded
+            For i = 0 To Hand.Length - 1
+                Hand(i) = TheDeck(i)
+            Next
+            For i = 1 To TheDeck.Length - 1
+                TheDeck(i - 1) = TheDeck(i)
+            Next
+            ReDim Preserve TheDeck(TheDeck.Length - 6)
+            Return Hand
+        End Function
+        Sub ReturnHand(RetHand() As Card)
+            Dim Index As Integer
+            ReDim Preserve TheDeck(TheDeck.Length + (RetHand.Length - 1))
+            For i = TheDeck.Length - RetHand.Length To TheDeck.Length - 1
+                TheDeck(i) = RetHand(Index)
+                Index += 1
+            Next
+        End Sub
+    End Structure
     Sub Main()
-        ' Setup funcs
-        ' -----------
-        Dim AllFaces() As Face = LoadFaces()
-        Dim DotCoords() As String = LoadDots()
         Dim AllSuits() As Suit = MakeSuits()
+        Dim Deck As Deck = MakeDeck(AllSuits)
+        Console.Title = "Card Deck functionality demo"
+        ' Budget struct solution 
+        Console.SetWindowSize(200, 70)
+        Console.BackgroundColor = ConsoleColor.DarkGreen
+        Console.Clear()
+        Dim CardX As Integer = 11
+        Dim CardY As Integer = 11
+        Dim StartCard = {2, 2}
+        For i = 1 To Deck.TheDeck.Length
+            DrawCard(StartCard, CardX, CardY, Deck.TheDeck(i - 1))
+            StartCard(0) += CardX + 1
+            If i Mod 13 = 0 Then
+                StartCard(0) = 2
+                StartCard(1) += CardY + 1
+            End If
+        Next
 
-        ' Default vals
-        ' ------------
+        ' Deck functionality demo 
+        Dim Choice As String = " "
+        Dim SingleCard As New Card
+        Dim SingleHand(4) As Card
+        Do
+            Console.SetCursorPosition(3, 52)
+            Console.BackgroundColor = ConsoleColor.DarkGreen
+            Console.ForegroundColor = ConsoleColor.Black
+            Console.Write("(D)eck   |   (C)ard   |   (H)and   |   (R)eturn card   |   Return H(A)nd   |   (Q)uit")
+            Choice = ChrW(Console.ReadKey().Key)
+            Console.WriteLine("")
+            Select Case Choice
+                Case Is = "D"
+                    Deck = MakeDeck(AllSuits)
+                    DrawDeck(Deck)
+                Case Is = "C"
+                    If Deck.CardDrawn Then
+                        Console.WriteLine("A card has already been drawn!")
+                    Else
+                        SingleCard = Deck.GetCard()
+                        StartCard = {2, 55}
+                        DrawDeck(Deck)
+                        DrawCard(StartCard, CardX, CardY, SingleCard)
+                    End If
+                Case Is = "H"
+                    SingleHand = Deck.GetHand()
+                    StartCard = {40, 55}
+                    DrawDeck(Deck)
+                    For i = 0 To SingleHand.Length - 1
+                        DrawCard(StartCard, CardX, CardY, SingleHand(i))
+                        StartCard(0) += CardX - 2
+                    Next
+                Case Is = "R"
+                    Deck.ReturnCard(SingleCard)
+                    SingleCard = New Card
+                    Console.Clear()
+                    DrawDeck(Deck)
+                Case Is = "A"
+                    Deck.ReturnHand(SingleHand)
+                    SingleHand(4) = New Card
+                    Console.Clear()
+                    DrawDeck(Deck)
+            End Select
+        Loop Until Choice = "Q"
+        'Console.ReadLine() 
+    End Sub
+    Function DrawDeck(ByVal Deck As Deck)
+        Console.BackgroundColor = ConsoleColor.DarkGreen
+        Console.Clear()
         Dim CardX As Integer = 11
         Dim CardY As Integer = 11
         Dim StartCard = {2, 2}
 
-        Console.Title = "Card Deck functionality demo"
-        Console.SetWindowSize(200, 70)
-        Console.BackgroundColor = ConsoleColor.DarkGreen
-        Console.Clear()
-
-        ' Deck generation
-        ' ---------------
-        Dim Deck As Deck = MakeDeck(AllSuits, AllFaces)
-
-        DrawCard(StartCard, CardX, CardY, Deck.TheDeck(1))
-
-        Console.ReadLine()
-    End Sub
+        For i = 1 To Deck.TheDeck.Length
+            DrawCard(StartCard, CardX, CardY, Deck.TheDeck(i - 1))
+            StartCard(0) += CardX - 2
+            If i Mod 13 = 0 Then
+                StartCard(0) = 2
+                StartCard(1) += CardY + 1
+            End If
+        Next
+    End Function
     Function MakeSuits()
         Dim AllSuits(3) As Suit
         Dim Names() As String = {"Hearts", "Diamonds", "Clubs", "Spades"}
@@ -93,37 +148,44 @@ Module Program
         Next
         Return AllSuits
     End Function
-    Function MakeDeck(ByVal Suits() As Suit, ByVal Faces() As Face)
-        Dim Deck As Deck
+    Function MakeCard(ByVal CardVal As Integer, ByVal CardWord As String, ByVal CardSuit As Suit)
+        Dim i As New Card With {.CardVal = CardVal, .CardWord = CardWord, .CardSuit = CardSuit}
+        Return i
+    End Function
+    Function MakeDeck(ByVal Suits() As Suit)
+        Dim ADeck As Deck
         Dim Index As Integer = 0
         Dim TempCard As Card
         For i = 0 To 3 ' 4 suits    
             For y = 1 To 13
-                ReDim Preserve Deck.TheDeck(Index)
+                ReDim Preserve ADeck.TheDeck(Index)
                 TempCard.CardSuit = Suits(i)
-                TempCard.CardFace = Faces(y - 1)
-                Deck.TheDeck(Index) = TempCard
+                TempCard.CardVal = y
+                Select Case y
+                    Case 1
+                        TempCard.CardWord = "Ace"
+                    Case 11
+                        TempCard.CardWord = "Jack"
+                    Case 12
+                        TempCard.CardWord = "Queen"
+                    Case 13
+                        TempCard.CardWord = "King"
+                    Case Else
+                        TempCard.CardWord = y
+                End Select
+                ADeck.TheDeck(Index) = TempCard
                 Index += 1
             Next
         Next
-        Dim ShuffledDeck As Deck
-        ShuffleDeck(Deck.TheDeck)
-        Return Deck
+        'Dim ShuffledDeck As Deck = 
+        ShuffleDeck(ADeck.TheDeck)
+        Return ADeck
     End Function
-    Sub ShuffleDeck(ByRef items() As Card)
-        Dim max_index As Integer = items.Length - 1
-        Dim rnd As New Random
-        For i As Integer = 0 To max_index - 1
-            Dim j As Integer = rnd.Next(i, max_index + 1)
-
-            Dim temp As Card = items(i)
-            items(i) = items(j)
-            items(j) = temp
-        Next i
-    End Sub
+    Function GenRndNum(z As Integer)
+        Return Int(z * Rnd() + 1)
+    End Function
     Sub DrawCard(ByVal StartCard As Integer(), ByVal CardX As Integer, ByVal CardY As Integer, ByVal Card As Card)
-        ' Draw back of card
-        ' -----------------
+        ' Draw Back of card      
         Console.BackgroundColor = ConsoleColor.White
         For x = 1 To CardX
             For y = 1 To CardY
@@ -152,8 +214,9 @@ Module Program
                 End If
             Next
         Next
-        ' Draw front of card 
-        ' ------------------
+        ' Delay card turnover      
+        'Threading.Thread.Sleep(5) 
+        ' Draw front of card      
         Console.BackgroundColor = ConsoleColor.White
         Console.ForegroundColor = ConsoleColor.Blue
         For x = 1 To CardX
@@ -177,21 +240,23 @@ Module Program
                     End If
                 End If
             Next
+            'Threading.Thread.Sleep(5) 
         Next
         Console.ForegroundColor = Card.CardSuit.Colour
         Console.SetCursorPosition(StartCard(0) + 2, StartCard(1) + 2)
-        If Card.CardFace.CardValue = "10" Then
-            Console.Write(Card.CardFace.CardWord)
+        If Card.CardVal = "10" Then
+            Console.Write(Card.CardWord)
         Else
-            Console.Write(Left(Card.CardFace.CardWord, 1))
+            Console.Write(Left(Card.CardWord, 1))
         End If
 
-        If Card.CardFace.CardValue = "10" Then
+        If Card.CardVal = "10" Then
             Console.SetCursorPosition(StartCard(0) + (CardX - 2), StartCard(1) + (CardY - 2))
-            Console.Write(Card.CardFace.CardWord, 2)
+            Console.Write(Card.CardWord, 2)
         Else
             Console.SetCursorPosition(StartCard(0) + (CardX - 1), StartCard(1) + (CardY - 2))
-            Console.Write(Left(Card.CardFace.CardWord, 1))
+            Console.Write(Left(Card.CardWord, 1))
+            'MsgBox("done")
         End If
 
         ' Writing suit symbol in corners
@@ -200,57 +265,50 @@ Module Program
         Console.SetCursorPosition(StartCard(0) + (CardX - 1), StartCard(1) + (CardY - 1))
         Console.Write(ChrW(Card.CardSuit.SymbolChar))
     End Sub
-    Sub DrawDeck(ByVal Deck As Deck)
-        Console.BackgroundColor = ConsoleColor.DarkGreen
-        Console.Clear()
-        Dim CardX As Integer = 11
-        Dim CardY As Integer = 11
-        Dim StartCard = {2, 2}
+    Sub ShuffleDeck(ByRef items() As Card)
+        Dim max_index As Integer = items.Length - 1
+        Dim rnd As New Random
+        For i As Integer = 0 To max_index - 1
+            Dim j As Integer = rnd.Next(i, max_index + 1)
 
-        For i = 1 To Deck.TheDeck.Length
-            DrawCard(StartCard, CardX, CardY, Deck.TheDeck(i - 1))
-            StartCard(0) += CardX - 2
-            If i Mod 13 = 0 Then
-                StartCard(0) = 2
-                StartCard(1) += CardY + 1
-            End If
-        Next
+            Dim temp As Card = items(i)
+            items(i) = items(j)
+            items(j) = temp
+        Next i
     End Sub
 
     Function LoadFaces() As Face()
         Dim Faces() As Face
         Dim Line() As String
 
-        FileOpen(1, "D:\Documents\AllFaces.txt", OpenMode.Input)
+        FileOpen(1, "S:\PATH\TO\FACES.txt", OpenMode.Input)
 
         For i = 0 To 12
             ReDim Preserve Faces(i)
             Line = Split(LineInput(1), ";")
             Faces(i).CardValue = Line(0)
             Faces(i).CardWord = Line(1)
-            Faces(i).DotPos = Split(Line(2), ",")
+            Faces(i).DotPos = Split(Line(3), ",")
         Next
 
         FileClose(1)
 
         Return Faces
     End Function
+
     Function LoadDots() As String()
         Dim DotCoords() As String
         Dim index As Integer
 
-        FileOpen(1, "D:\Documents\DotCoords.txt", OpenMode.Input)
+        FileOpen(1, "S:\PATH\TO\DOT.txt", OpenMode.Input)
 
         Do While Not EOF(1)
-            ReDim Preserve DotCoords(index + 1)
-            DotCoords(index) = LineInput(1) ' gotta split the line later <-----
+            ReDim Preserve DotCoords(index)
+
 
             index += 1
         Loop
-        FileClose(1)
+
         Return DotCoords
-    End Function
-    Function GenRndNum(z As Integer)
-        Return Int(z * Rnd() + 1)
     End Function
 End Module
