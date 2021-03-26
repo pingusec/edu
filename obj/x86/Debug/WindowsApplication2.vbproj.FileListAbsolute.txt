@@ -1,0 +1,9 @@
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\WindowsApplication2\WindowsApplication2\bin\Debug\WindowsApplication2.exe
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\WindowsApplication2\WindowsApplication2\bin\Debug\WindowsApplication2.pdb
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\WindowsApplication2\WindowsApplication2\bin\Debug\WindowsApplication2.xml
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\WindowsApplication2\WindowsApplication2\obj\x86\Debug\WindowsApplication1.Form1.resources
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\WindowsApplication2\WindowsApplication2\obj\x86\Debug\WindowsApplication1.Resources.resources
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\WindowsApplication2\WindowsApplication2\obj\x86\Debug\WindowsApplication2.vbproj.GenerateResource.Cache
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\WindowsApplication2\WindowsApplication2\obj\x86\Debug\WindowsApplication2.exe
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\WindowsApplication2\WindowsApplication2\obj\x86\Debug\WindowsApplication2.xml
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\WindowsApplication2\WindowsApplication2\obj\x86\Debug\WindowsApplication2.pdb
