@@ -51,7 +51,7 @@ End Structure
 Module Program
 
     Dim DotCoords() As String = LoadDots()
-
+    Dim PictureCards() As String = {"000000010010111111011110011110001100000000", "000000001100011110111111011110001100000000", "001100011110111111111111001100001100011110", "011110111111111111111111001100001100011110"}
     ' Demo code for Face struct
 
 
@@ -257,8 +257,36 @@ Module Program
 
         Dim xy() As String
         Dim colours() As ConsoleColor = LoadColours()
+        Dim PictureCard As String
+        Dim index As Integer
         Select Case Card.CardFace.CardValue
-            Case 1 To 10
+            Case 1
+                Select Case Card.CardSuit.Name
+                    Case Is = "Hearts"
+                        PictureCard = PictureCards(0)
+                    Case Is = "Diamonds"
+                        PictureCard = PictureCards(1)
+                    Case Is = "Spades"
+                        PictureCard = PictureCards(2)
+                    Case Is = "Clubs"
+                        PictureCard = PictureCards(3)
+                End Select
+
+                '42
+
+                Console.BackgroundColor = Card.CardSuit.Colour
+
+                For y = 3 To CardY - 2
+                    For x = 3 To CardX - 3
+                        Console.SetCursorPosition(StartCard(0) + x, StartCard(1) + y)
+                        If PictureCard(index) = "1" Then
+                            Console.Write(" ")
+                        End If
+                        index += 1
+                    Next
+                Next
+
+            Case 2 To 10
                 For i = 0 To Card.CardFace.DotPos.Length - 1
                     xy = Split(DotCoords(Card.CardFace.DotPos(i)), ",")
                     Console.SetCursorPosition(StartCard(0) + xy(0), StartCard(1) + xy(1))
@@ -298,7 +326,7 @@ Module Program
         Dim Faces() As Face
         Dim Line() As String
 
-        FileOpen(1, "D:\Documents\AllFaces.txt", OpenMode.Input)
+        FileOpen(1, "S:\AllFaces.txt", OpenMode.Input)
 
         For i = 0 To 12
             ReDim Preserve Faces(i)
@@ -315,8 +343,8 @@ Module Program
     Function LoadDots() As String()
         Dim DotCoords() As String
         Dim index As Integer
-
-        FileOpen(1, "D:\Documents\DotCoords.txt", OpenMode.Input)
+        
+        FileOpen(1, "S:\DotCoords.txt", OpenMode.Input)
 
         Do While Not EOF(1)
             ReDim Preserve DotCoords(index + 1)
