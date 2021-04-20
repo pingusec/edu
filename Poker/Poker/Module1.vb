@@ -1,4 +1,4 @@
-﻿Module Module1
+Module Module1
 
     Sub Main()
 
@@ -20,10 +20,14 @@
         DrawAHand(30, 0, TheHand)
         Console.ReadLine()
 
+
         Dim Result As Integer
 
-
-        If TestForPair(TheHand) = 2 Then
+        If TestForFour(TheHand) = 8 Then
+            Result = 8
+        ElseIf TestForThree(TheHand) = 4 Then
+            Result = 4
+        ElseIf TestForPair(TheHand) = 2 Then
             Result = 2
         Else
             Result = 1
@@ -41,7 +45,7 @@
         For i = 0 To Array.Length - 2
             For z = 0 To Array.Length - 2
                 If Array(z).Face.CardValue < Array(z + 1).Face.CardValue Then
-                    temp = Array(z + 1)
+                    temp = Array(z)
                     Array(z) = Array(z + 1)
                     Array(z + 1) = temp
                 End If
@@ -53,9 +57,29 @@
 
     Function TestForPair(ByVal Hand() As Card) As Integer
         Hand = BubbleSort(Hand)
-        For i = 0 To Hand.Length - 1
+        For i = 0 To 3
             If Hand(i).Face.CardValue = Hand(i + 1).Face.CardValue Then
                 Return 2
+            End If
+        Next
+        Return 0
+    End Function
+
+    Function TestForThree(ByVal Hand() As Card) As Integer
+        Hand = BubbleSort(Hand)
+        For i = 0 To 2
+            If Hand(i).Face.CardValue = Hand(i + 2).Face.CardValue Then
+                Return 4
+            End If
+        Next
+        Return 0
+    End Function
+
+    Function TestForFour(ByVal Hand() As Card) As Integer
+        Hand = BubbleSort(Hand)
+        For i = 0 To 1
+            If Hand(i).Face.CardValue = Hand(i + 3).Face.CardValue Then
+                Return 8
             End If
         Next
         Return 0
