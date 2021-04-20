@@ -1,0 +1,11 @@
+C:\Users\BenmouhoubA08499\AppData\Local\Temporary Projects\Poker\bin\Debug\Poker.exe
+C:\Users\BenmouhoubA08499\AppData\Local\Temporary Projects\Poker\bin\Debug\Poker.pdb
+C:\Users\BenmouhoubA08499\AppData\Local\Temporary Projects\Poker\bin\Debug\Poker.xml
+C:\Users\BenmouhoubA08499\AppData\Local\Temporary Projects\Poker\obj\x86\Debug\Poker.Resources.resources
+C:\Users\BenmouhoubA08499\AppData\Local\Temporary Projects\Poker\obj\x86\Debug\Poker.vbproj.GenerateResource.Cache
+C:\Users\BenmouhoubA08499\AppData\Local\Temporary Projects\Poker\obj\x86\Debug\Poker.exe
+C:\Users\BenmouhoubA08499\AppData\Local\Temporary Projects\Poker\obj\x86\Debug\Poker.xml
+C:\Users\BenmouhoubA08499\AppData\Local\Temporary Projects\Poker\obj\x86\Debug\Poker.pdb
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\Poker\Poker\obj\x86\Debug\Poker.exe
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\Poker\Poker\obj\x86\Debug\Poker.xml
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\Poker\Poker\obj\x86\Debug\Poker.pdb
