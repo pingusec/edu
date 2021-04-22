@@ -11,33 +11,33 @@ Module Module1
         Dim SingleCard As Card
         Dim TheHand() As Card
         Dim WinLevel As Integer
+        Dim Index As String
+        Dim SwapStr() As String
+        Dim SwapCards As Card()
+
         AllSuits = MakeSuits()
         GameDeck = MakeADeck(AllSuits, AllFaces)
 
         ' Get Hand > Sort Hand > DrawHand > Assign Win level
+        ' Get Hand > Sort Hand > Draw Hand > Assign Win Level > Ask for cards to switch > take out cards > place in deck > get new cards > draw hand > assign win level
+
 
         TheHand = BubbleSort(DealAHand(GameDeck))
         DrawAHand(30, 0, TheHand)
 
-        Console.SetCursorPosition(0, 0)
-        Console.WriteLine(WinLevel)
-        Console.ReadLine()
-
-        ' implement fix level after the sort hand
-
-        ' Testing out the card and hand creation and drawing ......
-        'SingleCard = TakeCardFromTopOfDeck(GameDeck)
-        'DrawACard(0, 0, SingleCard)
-
-
-
         WinLevel = AssignWinLevel(TheHand)
 
-
         Console.SetCursorPosition(0, 0)
-        Console.WriteLine(WinLevel)
+        Console.WriteLine("hand lvl: " & WinLevel)
 
+        Console.WriteLine("Would you like to swap out any cards? (0 = none, 123 = 1,2 and 3)")
+        Index = Console.ReadLine()
+        ReDim SwapCards(Index.Length)
+        For i = 0 To SwapCards.Length - 1
+            GameDeck = ReturnCardToBottomOfDeck(TheHand(Int(Index.Chars(i))), GameDeck)
+        Next
 
+        Console.WriteLine()
 
         Console.ReadLine()
 
@@ -98,6 +98,11 @@ Module Module1
 
     Function TF_FullHouse(ByVal Hand() As Card) As Boolean
         ' 1 three and 1 pair
+        If (Hand(0).Face.CardValue = Hand(1).Face.CardValue And Hand(2).Face.CardValue = Hand(4).Face.CardValue) Or (Hand(0).Face.CardValue = Hand(2).Face.CardValue And Hand(0).Face.CardValue = Hand(2).Face.CardValue And Hand(3).Face.CardValue = Hand(4).Face.CardValue And Hand(1).Face.CardValue = Hand(2).Face.CardValue) Then
+            Return True
+        Else
+            Return False
+        End If
 
     End Function
 
@@ -106,7 +111,6 @@ Module Module1
         Dim i As Integer
         Dim Flag As Boolean = True
         Do While Flag = True And i < 4
-            Console.WriteLine(i)
             If Hand(i).CardSuit.CharCode <> Hand(i + 1).CardSuit.CharCode Then
                 Flag = False
             End If
@@ -120,7 +124,6 @@ Module Module1
         Dim i As Integer
         Dim Flag As Boolean = True
         Do While Flag = True And i < 4
-            Console.WriteLine(i)
             If Hand(i).Face.CardValue <> Hand(i + 1).Face.CardValue - 1 Then
                 Flag = False
             End If
@@ -130,7 +133,7 @@ Module Module1
     End Function
 
     Function TF_TwoPair(ByVal Hand() As Card) As Boolean
-        If (Hand(0).Face.CardValue = Hand(1).Face.CardValue And Hand(2).Face.CardValue = Hand(3).Face.CardValue) Or (Hand(1).Face.CardValue = Hand(2).Face.CardValue And Hand(3).Face.CardValue = Hand(4).Face.CardValue) Or (Hand(0).Face.CardValue = Hand(1).Face.CardValue And Hand(4).Face.CardValue = Hand(5).Face.CardValue) Then
+        If (Hand(0).Face.CardValue = Hand(1).Face.CardValue And Hand(2).Face.CardValue = Hand(3).Face.CardValue) Or (Hand(1).Face.CardValue = Hand(2).Face.CardValue And Hand(3).Face.CardValue = Hand(4).Face.CardValue) Or (Hand(0).Face.CardValue = Hand(1).Face.CardValue And Hand(3).Face.CardValue = Hand(4).Face.CardValue) Then
             Return True
         Else
             Return False
@@ -150,7 +153,7 @@ Module Module1
     Function TF_ThreeKind(ByVal Hand() As Card) As Boolean
         Hand = BubbleSort(Hand)
         For i = 0 To 2
-            If Hand(i).CardSuit.CharCode = Hand(i + 2).CardSuit.CharCode Then
+            If Hand(i).Face.CardValue = Hand(i + 2).Face.CardValue Then
                 Return True
             End If
         Next
@@ -160,7 +163,7 @@ Module Module1
     Function TF_FourKind(ByVal Hand() As Card) As Boolean
         Hand = BubbleSort(Hand)
         For i = 0 To 1
-            If Hand(i).CardSuit.CharCode = Hand(i + 3).CardSuit.CharCode Then
+            If Hand(i).Face.CardValue = Hand(i + 3).Face.CardValue Then
                 Return True
             End If
         Next
