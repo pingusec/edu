@@ -1,0 +1,26 @@
+C:\Users\BenmouhoubA08499\AppData\Local\Temporary Projects\Sales\bin\Debug\Sales.exe
+C:\Users\BenmouhoubA08499\AppData\Local\Temporary Projects\Sales\bin\Debug\Sales.pdb
+C:\Users\BenmouhoubA08499\AppData\Local\Temporary Projects\Sales\bin\Debug\Sales.xml
+C:\Users\BenmouhoubA08499\AppData\Local\Temporary Projects\Sales\obj\x86\Debug\Sales.CustomerForm.resources
+C:\Users\BenmouhoubA08499\AppData\Local\Temporary Projects\Sales\obj\x86\Debug\Sales.Form1.resources
+C:\Users\BenmouhoubA08499\AppData\Local\Temporary Projects\Sales\obj\x86\Debug\Sales.Resources.resources
+C:\Users\BenmouhoubA08499\AppData\Local\Temporary Projects\Sales\obj\x86\Debug\Sales.vbproj.GenerateResource.Cache
+C:\Users\BenmouhoubA08499\AppData\Local\Temporary Projects\Sales\obj\x86\Debug\Sales.exe
+C:\Users\BenmouhoubA08499\AppData\Local\Temporary Projects\Sales\obj\x86\Debug\Sales.xml
+C:\Users\BenmouhoubA08499\AppData\Local\Temporary Projects\Sales\obj\x86\Debug\Sales.pdb
+C:\Users\BenmouhoubA08499\AppData\Local\Temporary Projects\Sales\obj\x86\Debug\Sales.SalesForm.resources
+C:\Users\BenmouhoubA08499\AppData\Local\Temporary Projects\Sales\obj\x86\Debug\Sales.AddCustomer.resources
+C:\Users\BenmouhoubA08499\AppData\Local\Temporary Projects\Sales\obj\x86\Debug\Sales.EditCustomer.resources
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\Sales\Sales\obj\x86\Debug\Sales.exe
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\Sales\Sales\obj\x86\Debug\Sales.xml
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\Sales\Sales\obj\x86\Debug\Sales.pdb
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\Sales\Sales\bin\Debug\Sales.exe
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\Sales\Sales\bin\Debug\Sales.pdb
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\Sales\Sales\bin\Debug\Sales.xml
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\Sales\Sales\obj\x86\Debug\Sales.AddCustomer.resources
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\Sales\Sales\obj\x86\Debug\Sales.CustomerForm.resources
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\Sales\Sales\obj\x86\Debug\Sales.EditCustomer.resources
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\Sales\Sales\obj\x86\Debug\Sales.Form1.resources
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\Sales\Sales\obj\x86\Debug\Sales.Resources.resources
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\Sales\Sales\obj\x86\Debug\Sales.ProductForm.resources
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\Sales\Sales\obj\x86\Debug\Sales.vbproj.GenerateResource.Cache
