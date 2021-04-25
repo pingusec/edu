@@ -1,5 +1,4 @@
 Module Module1
-
     Sub Main()
 
         Console.SetWindowSize(120, 45)
@@ -12,14 +11,12 @@ Module Module1
         Dim TheHand() As Card
         Dim WinLevel As Integer
         Dim Index As String
-        Dim SwapStr() As String
-        Dim SwapCards As Card()
 
         AllSuits = MakeSuits()
         GameDeck = MakeADeck(AllSuits, AllFaces)
 
-        ' Get Hand > Sort Hand > DrawHand > Assign Win level
         ' Get Hand > Sort Hand > Draw Hand > Assign Win Level > Ask for cards to switch > take out cards > place in deck > get new cards > draw hand > assign win level
+        ' Player1 gets a hand > player1 score hand > 
 
 
         TheHand = BubbleSort(DealAHand(GameDeck))
@@ -30,19 +27,30 @@ Module Module1
         Console.SetCursorPosition(0, 0)
         Console.WriteLine("hand lvl: " & WinLevel)
 
-        Console.WriteLine("Would you like to swap out any cards? (0 = none, 123 = 1,2 and 3)")
-        Index = Console.ReadLine()
-        ReDim SwapCards(Index.Length)
-        For i = 0 To SwapCards.Length - 1
-            GameDeck = ReturnCardToBottomOfDeck(TheHand(Int(Index.Chars(i))), GameDeck)
-        Next
+        Console.SetCursorPosition(30, 15)
 
-        Console.WriteLine()
+        Console.WriteLine("What cards would you like to switch out? (1=card one, 1,2,3=card one, two and three)")
+        Dim SwapStr() As String = Split(Console.ReadLine(), ",")
+        Dim SwapCards(SwapStr.Length - 1) As Card
+        If SwapStr.Length = 5 Then
+            GameDeck = ReturnHandToBottomOfDeck(TheHand, GameDeck)
+            TheHand = DealAHand(GameDeck)
+        Else
+            For i = 1 To SwapCards.Length
+                GameDeck = ReturnCardToBottomOfDeck(TheHand(SwapStr(i - 1) - 1), GameDeck)
+                TheHand(SwapStr(i - 1) - 1) = TakeCardFromTopOfDeck(GameDeck)
+                GameDeck = PushCardsForwardByOne(GameDeck)
+            Next
+        End If
 
+        DrawAHand(30, 30, TheHand)
+        WinLevel = AssignWinLevel(TheHand)
+
+        Console.SetCursorPosition(30, 29)
+        Console.WriteLine("hand lvl: " & WinLevel)
         Console.ReadLine()
 
     End Sub
-
     Function BubbleSort(ByVal Array() As Card) As Card()
         Dim temp As Card
         For i = 0 To Array.Length - 2
@@ -124,7 +132,7 @@ Module Module1
         Dim i As Integer
         Dim Flag As Boolean = True
         Do While Flag = True And i < 4
-            If Hand(i).Face.CardValue <> Hand(i + 1).Face.CardValue - 1 Then
+            If Hand(i).Face.CardValue <> Hand(i + 1).Face.CardValue + 1 Then
                 Flag = False
             End If
             i += 1
