@@ -68,116 +68,124 @@ Module Module1
         Return Array
     End Function
 
-    Function AssignWinLevel(Hand() As Card) As Integer
-        Dim WinLvl As Integer = 1 ' < Weakest hand value
+    Function AssignWinLevel(Hand() As Card) As WinLevel
+        Dim WinLvl As New WinLevel With {.Level = 1, .Value = 1} ' < Weakest hand value
+        ' Modify the checks to return a winvalue structure
+
         ' test from weakest hand to strongest
-        If TF_OnePair(Hand) Then
-            WinLvl = 2
+        'If TF_OnePair(Hand) Then
+        '    WinLvl = 2
+        'End If
+        'If TF_TwoPair(Hand) Then
+        '    WinLvl = 3
+        'End If
+        'If TF_ThreeKind(Hand) Then
+        '    WinLvl = 4
+        'End If
+        'If TF_Straight(Hand) Then
+        '    WinLvl = 5
+        'End If
+        'If TF_Flush(Hand) Then
+        '    WinLvl = 6
+        'End If
+        'If TF_FullHouse(Hand) Then
+        '    WinLvl = 7
+        'End If
+        'If TF_FourKind(Hand) Then
+        '    WinLvl = 8
+        'End If
+        'If TF_StrightFlush(Hand) Then
+        '    WinLvl = 9
+        'End If
+        If TF_OnePair(Hand).Level > WinLvl.Level Then
+            WinLvl = TF_OnePair(Hand)
         End If
-        If TF_TwoPair(Hand) Then
-            WinLvl = 3
-        End If
-        If TF_ThreeKind(Hand) Then
-            WinLvl = 4
-        End If
-        If TF_Straight(Hand) Then
-            WinLvl = 5
-        End If
-        If TF_Flush(Hand) Then
-            WinLvl = 6
-        End If
-        If TF_FullHouse(Hand) Then
-            WinLvl = 7
-        End If
-        If TF_FourKind(Hand) Then
-            WinLvl = 8
-        End If
-        If TF_StrightFlush(Hand) Then
-            WinLvl = 9
-        End If
+        If TF_TwoPair(Hand).Level > WinLvl.
         Return WinLvl
     End Function
 
-    Function TF_StrightFlush(ByVal Hand() As Card) As Boolean
+    Function TF_StrightFlush(ByVal Hand() As Card) As WinLevel
         ' everthing in order and same suit
-        If TF_Straight(Hand) And TF_Flush(Hand) Then
-            Return True
+        If TF_Straight(Hand).Level <> -1 And TF_Flush(Hand).Level <> -1 Then
+            Return New WinLevel With {.Level = 9, .Value = 1}
         Else
-            Return False
+            Return New WinLevel With {.Level = -1, .Value = -1}
         End If
     End Function
 
-    Function TF_FullHouse(ByVal Hand() As Card) As Boolean
+    Function TF_FullHouse(ByVal Hand() As Card) As WinLevel
         ' 1 three and 1 pair
         If (Hand(0).Face.CardValue = Hand(1).Face.CardValue And Hand(2).Face.CardValue = Hand(4).Face.CardValue) Or (Hand(0).Face.CardValue = Hand(2).Face.CardValue And Hand(0).Face.CardValue = Hand(2).Face.CardValue And Hand(3).Face.CardValue = Hand(4).Face.CardValue And Hand(1).Face.CardValue = Hand(2).Face.CardValue) Then
-            Return True
+            Return New WinLevel With {.Level = 7, .Value = 1}
         Else
-            Return False
+            Return New WinLevel With {.Level = -1, .Value = -1}
         End If
 
     End Function
 
-    Function TF_Flush(ByVal Hand() As Card) As Boolean
+    Function TF_Flush(ByVal Hand() As Card) As WinLevel
         ' everying same suit
         Dim i As Integer
-        Dim Flag As Boolean = True
-        Do While Flag = True And i < 4
+        Dim Flag As New WinLevel With {.Level = 6, .Value = 1}
+        Do While Flag.Value <> 6 And i < 4
             If Hand(i).CardSuit.CharCode <> Hand(i + 1).CardSuit.CharCode Then
-                Flag = False
+                Flag.Level = -1
+                Flag.Value = -1
             End If
             i += 1
         Loop
         Return Flag
     End Function
 
-    Function TF_Straight(ByVal Hand() As Card) As Boolean
+    Function TF_Straight(ByVal Hand() As Card) As WinLevel
         ' everthing in order
         Dim i As Integer
-        Dim Flag As Boolean = True
-        Do While Flag = True And i < 4
+        Dim Flag As New WinLevel With {.Level = 5, .Value = 1}
+        Do While Flag.Value <> 6 And i < 4
             If Hand(i).Face.CardValue <> Hand(i + 1).Face.CardValue + 1 Then
-                Flag = False
+                Flag.Level = -1
+                Flag.Value = -1
             End If
             i += 1
         Loop
         Return Flag
     End Function
 
-    Function TF_TwoPair(ByVal Hand() As Card) As Boolean
+    Function TF_TwoPair(ByVal Hand() As Card) As WinLevel
         If (Hand(0).Face.CardValue = Hand(1).Face.CardValue And Hand(2).Face.CardValue = Hand(3).Face.CardValue) Or (Hand(1).Face.CardValue = Hand(2).Face.CardValue And Hand(3).Face.CardValue = Hand(4).Face.CardValue) Or (Hand(0).Face.CardValue = Hand(1).Face.CardValue And Hand(3).Face.CardValue = Hand(4).Face.CardValue) Then
-            Return True
+            Return New WinLevel With {.Level = 3, .Value = Hand(3).Face.CardValue}
         Else
-            Return False
+            Return New WinLevel With {.Level = -1, .Value = -1}
         End If
     End Function
 
-    Function TF_OnePair(ByVal Hand() As Card) As Boolean
+    Function TF_OnePair(ByVal Hand() As Card) As WinLevel
         Hand = BubbleSort(Hand)
         For i = 0 To 3
             If Hand(i).Face.CardValue = Hand(i + 1).Face.CardValue Then
-                Return True
+                Return New WinLevel With {.Level = 2, .Value = Hand(i).Face.CardValue}
             End If
         Next
-        Return False
+        Return New WinLevel With {.Level = -1, .Value = -1}
     End Function
 
-    Function TF_ThreeKind(ByVal Hand() As Card) As Boolean
+    Function TF_ThreeKind(ByVal Hand() As Card) As WinLevel
         Hand = BubbleSort(Hand)
         For i = 0 To 2
             If Hand(i).Face.CardValue = Hand(i + 2).Face.CardValue Then
-                Return True
+                Return New WinLevel With {.Level = 4, .Value = Hand(i).Face.CardValue}
             End If
         Next
-        Return False
+        Return New WinLevel With {.Level = -1, .Value = -1}
     End Function
 
-    Function TF_FourKind(ByVal Hand() As Card) As Boolean
+    Function TF_FourKind(ByVal Hand() As Card) As WinLevel
         Hand = BubbleSort(Hand)
         For i = 0 To 1
             If Hand(i).Face.CardValue = Hand(i + 3).Face.CardValue Then
-                Return True
+                Return New WinLevel With {.Level = 8, .Value = Hand(i).Face.CardValue}
             End If
         Next
-        Return False
+        Return New WinLevel With {.Level = -1, .Value = -1}
     End Function
 End Module
