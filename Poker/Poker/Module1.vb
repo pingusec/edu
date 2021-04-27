@@ -9,14 +9,14 @@ Module Module1
         Dim GameDeck As Deck
         Dim SingleCard As Card
         Dim TheHand() As Card
-        Dim WinLevel As Integer
+        Dim WinLevel As WinLevel
         Dim Index As String
 
         AllSuits = MakeSuits()
         GameDeck = MakeADeck(AllSuits, AllFaces)
 
         ' Get Hand > Sort Hand > Draw Hand > Assign Win Level > Ask for cards to switch > take out cards > place in deck > get new cards > draw hand > assign win level
-        ' Player1 gets a hand > player1 score hand > 
+        ' Get Win Level with value on how good that win level is?
 
 
         TheHand = BubbleSort(DealAHand(GameDeck))
@@ -29,6 +29,17 @@ Module Module1
 
         Console.SetCursorPosition(30, 15)
 
+        SwapHand(GameDeck, TheHand)
+
+        DrawAHand(30, 30, TheHand)
+        WinLevel = AssignWinLevel(TheHand)
+
+        Console.SetCursorPosition(30, 29)
+        Console.WriteLine("hand lvl: " & WinLevel)
+        Console.ReadLine()
+
+    End Sub
+    Sub SwapHand(ByRef GameDeck As Deck, ByRef TheHand() As Card)
         Console.WriteLine("What cards would you like to switch out? (1=card one, 1,2,3=card one, two and three)")
         Dim SwapStr() As String = Split(Console.ReadLine(), ",")
         Dim SwapCards(SwapStr.Length - 1) As Card
@@ -42,14 +53,6 @@ Module Module1
                 GameDeck = PushCardsForwardByOne(GameDeck)
             Next
         End If
-
-        DrawAHand(30, 30, TheHand)
-        WinLevel = AssignWinLevel(TheHand)
-
-        Console.SetCursorPosition(30, 29)
-        Console.WriteLine("hand lvl: " & WinLevel)
-        Console.ReadLine()
-
     End Sub
     Function BubbleSort(ByVal Array() As Card) As Card()
         Dim temp As Card
