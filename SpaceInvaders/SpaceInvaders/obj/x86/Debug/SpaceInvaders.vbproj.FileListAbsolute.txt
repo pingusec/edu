@@ -1,0 +1,9 @@
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\SpaceInvaders\SpaceInvaders\bin\Debug\SpaceInvaders.exe
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\SpaceInvaders\SpaceInvaders\bin\Debug\SpaceInvaders.pdb
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\SpaceInvaders\SpaceInvaders\bin\Debug\SpaceInvaders.xml
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.Form1.resources
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.Resources.resources
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.vbproj.GenerateResource.Cache
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.exe
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.xml
+\\lpbs-file-03\2015$\benmouhouba08499\visual studio 2010\Projects\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.pdb
